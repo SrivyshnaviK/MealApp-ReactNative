@@ -3,6 +3,9 @@ import { StyleSheet } from "react-native";
 import { CATEGORIES, MEALS } from "../../data/data";
 import { NavigationProp, RouteProp } from "@react-navigation/native";
 import MealList from "../organisms/MealList/MealList";
+import { useSelector } from "react-redux";
+import { appState } from "../../store/reducers/MealReducer";
+import Meal from "../../model/Meal";
 
 export type CategoriesScreenProps = {
   navigation: NavigationProp<any>;
@@ -14,10 +17,10 @@ const CategoryMealsScreen: React.FC<CategoriesScreenProps> = ({
 }) => {
   const { categoryId } = route.params!;
 
-  const displayedMeals = MEALS.filter(
-    (meal) => meal.categoryIds.indexOf(categoryId) >= 0
-  );
-  return <MealList listData={displayedMeals} navigation={navigation} />;
+  const availableMeals = useSelector<appState, appState["meals"]>((state) => state.meals);
+  console.log(availableMeals);
+  
+  return <MealList listData={availableMeals} navigation={navigation} />;
 };
 export const CategoryMealsScreenOptions = (navigationData: any) => {
   const categoryId = navigationData.route.params.categoryId;

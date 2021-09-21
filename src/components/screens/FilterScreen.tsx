@@ -14,7 +14,7 @@ const FilterSwitch = (props: any) => {
       <Text>{props.label}</Text>
       <Switch
         trackColor={{ true: Colors.primaryColor }}
-        thumbColor={Platform.OS === "android" ? Colors.primaryColor : ""}
+        thumbColor={Colors.primaryColor}
         value={props.state}
         onValueChange={props.onChange}
       />
@@ -88,9 +88,7 @@ export const FilterScreenOptions = (navigationData: any) => {
         <Item
           title="Save"
           iconName="ios-save"
-          onPress={
-            navigationData.route.params && navigationData.route.params.save
-          }
+          onPress={()=>navigationData.route.params.save()}
         />
       </HeaderButtons>
     ),

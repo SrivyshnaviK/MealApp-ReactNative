@@ -1,6 +1,8 @@
 import { NavigationProp, RouteProp } from '@react-navigation/native';
 import React from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
+import { appState } from '../../../store/reducers/MealReducer';
 import MealItem from '../../molecules/MealItem/MealItem';
 
 export type MealListProps = {
@@ -8,8 +10,15 @@ export type MealListProps = {
     route?: RouteProp<any>;
     listData: any;
   };
-const MealList: React.FC<MealListProps> = ({ navigation,route,listData}) => {
-  const renderMealItem = (itemData:any) => {
+const MealList: React.FC<MealListProps> = ({ navigation, route, listData }) => {
+  const availableMeals = useSelector<appState, appState["meals"]>((state) => state.meals);
+  
+  const renderMealItem = (itemData: any) => {
+    console.log("Render Meal Item");
+    
+    console.log(itemData.item);
+    
+    //const isFavorite = availableMeals.some(meal => meal.id === itemData.item.id);
     return (
       <MealItem
         title={itemData.item.title}
@@ -20,7 +29,9 @@ const MealList: React.FC<MealListProps> = ({ navigation,route,listData}) => {
         onSelectMeal={() => {
           navigation.navigate(
         'MealDetail', {
-              mealId: itemData.item.id
+              mealId: itemData.item.id,
+              mealTitle: itemData.item.title,
+              //isFav: isFavorite
             }
           );
         }}
@@ -28,6 +39,8 @@ const MealList: React.FC<MealListProps> = ({ navigation,route,listData}) => {
     );
   };
 
+  
+  
   return (
     <View style={styles.list}>
       <FlatList
