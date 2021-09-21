@@ -1,11 +1,11 @@
 import React from 'react';
 import {
   View,
-  Text,
   StyleSheet,
-  TouchableOpacity,
-  ImageBackground
+  ImageBackground,
+  TouchableNativeFeedback,
 } from 'react-native';
+import Text from "../../atoms/Text/Text";
 
 type MealItemProps={
     onSelectMeal:()=>void;
@@ -18,7 +18,7 @@ type MealItemProps={
 const MealItem:React.FC<MealItemProps> = ({onSelectMeal,image,title,affordability,complexity,duration}) => {
   return (
     <View style={styles.mealItem}>
-      <TouchableOpacity onPress={onSelectMeal}>
+      <TouchableNativeFeedback onPress={onSelectMeal}>
         <View>
           <View style={{ ...styles.mealRow, ...styles.mealHeader }}>
             <ImageBackground
@@ -38,7 +38,7 @@ const MealItem:React.FC<MealItemProps> = ({onSelectMeal,image,title,affordabilit
             <Text>{affordability.toUpperCase()}</Text>
           </View>
         </View>
-      </TouchableOpacity>
+      </TouchableNativeFeedback>
     </View>
   );
 };
