@@ -2,6 +2,7 @@ import { NavigationProp, RouteProp } from '@react-navigation/native';
 import React from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
+import Meal from '../../../model/Meal';
 import { appState } from '../../../store/reducers/MealReducer';
 import MealItem from '../../molecules/MealItem/MealItem';
 
@@ -11,14 +12,12 @@ export type MealListProps = {
     listData: any;
   };
 const MealList: React.FC<MealListProps> = ({ navigation, route, listData }) => {
-  const availableMeals = useSelector<appState, appState["meals"]>((state) => state.meals);
+  const favMeals = useSelector<appState, appState["favouriteMeals"]>((state) => state.meals.favouriteMeals);
   
   const renderMealItem = (itemData: any) => {
-    console.log("Render Meal Item");
+    const isFavorite = favMeals.some((meal: Meal) => meal.id === itemData.item.id);
+    console.log("MealList-Fav",isFavorite);
     
-    console.log(itemData.item);
-    
-    //const isFavorite = availableMeals.some(meal => meal.id === itemData.item.id);
     return (
       <MealItem
         title={itemData.item.title}
@@ -31,7 +30,7 @@ const MealList: React.FC<MealListProps> = ({ navigation, route, listData }) => {
         'MealDetail', {
               mealId: itemData.item.id,
               mealTitle: itemData.item.title,
-              //isFav: isFavorite
+              isFav: isFavorite
             }
           );
         }}

@@ -10,11 +10,9 @@ import mealsReducer from "./src/store/reducers/MealReducer";
 import { useState } from "react";
 
 const rootReducer = combineReducers({
-  meals: mealsReducer,
+ meals: mealsReducer,
 });
-
 const store = createStore(rootReducer);
-
 const fetchFonts = () => {
   return Font.loadAsync({
     "open-sans": require("./assets/fonts/OpenSans-Regular.ttf"),

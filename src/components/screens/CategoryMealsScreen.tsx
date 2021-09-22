@@ -17,10 +17,13 @@ const CategoryMealsScreen: React.FC<CategoriesScreenProps> = ({
 }) => {
   const { categoryId } = route.params!;
 
-  const availableMeals = useSelector<appState, appState["meals"]>((state) => state.meals);
-  console.log(availableMeals);
-  
-  return <MealList listData={availableMeals} navigation={navigation} />;
+  const availableMeals = useSelector<appState,appState["meals"]>((state) => { 
+   return state.meals.meals });
+   const displayedMeals = availableMeals.filter(
+    (meal:Meal) => meal.categoryIds.indexOf(categoryId) >= 0
+  );
+
+  return <MealList listData={displayedMeals} navigation={navigation} />;
 };
 export const CategoryMealsScreenOptions = (navigationData: any) => {
   const categoryId = navigationData.route.params.categoryId;

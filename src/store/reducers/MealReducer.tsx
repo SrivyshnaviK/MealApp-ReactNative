@@ -1,21 +1,41 @@
-import { Action } from "redux";
 import { MEALS } from "../../data/data";
 import Meal from "../../model/Meal";
+import { TOGGLE_FAVORITE } from "../actions/MealActions";
 
 export type appState = {
-    meals: Meal[],
-    filteredMeals: Meal[],
-    favouriteMeals: Meal[]
-}
-
-export const initialAppState = {
-    meals: MEALS,
-    filteredMeals: MEALS,
-    favouriteMeals: []
+  meals: any;
+  filteredMeals: any;
+  favouriteMeals: any;
 };
 
-const mealsReducer = (state:appState = initialAppState, action:Action) => {
-    return state;
-}
+export const initialAppState = {
+  meals: MEALS,
+  filteredMeals: MEALS,
+  favouriteMeals: [],
+};
+
+type Action = { type: string; payload: string };
+const mealsReducer = (state: appState = initialAppState, action: Action) => {
+  switch (action.type) {
+    case TOGGLE_FAVORITE:
+      const existingIndex = state.favouriteMeals.findIndex(
+        (meal: Meal) => meal.id === action.payload
+      );
+
+      if (existingIndex >= 0) {
+        const updatedFavMeals = [...state.favouriteMeals];
+        updatedFavMeals.splice(existingIndex, 1);
+        return { ...state, favouriteMeals: updatedFavMeals };
+      } else {
+        const meal = state.meals.find(
+          (meal: Meal) => meal.id === action.payload
+        );
+
+        return { ...state, favouriteMeals: state.favouriteMeals.concat(meal) };
+      }
+    default:
+      return state;
+  }
+};
 
 export default mealsReducer;

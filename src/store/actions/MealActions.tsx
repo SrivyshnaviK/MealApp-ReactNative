@@ -1,5 +1,5 @@
 export const TOGGLE_FAVORITE = 'TOGGLE_FAVORITE';
 
-export const toggleFavorite = (id:number) => {
-    return { type: TOGGLE_FAVORITE, mealId: id };
+export const toggleFavorite = (id: string) => {
+    return { type: TOGGLE_FAVORITE, payload: id };
 };

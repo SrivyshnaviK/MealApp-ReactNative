@@ -13,9 +13,8 @@ export type FavouritesScreenProps = {
 };
   
 const FavouritesScreen: React.FC<FavouritesScreenProps> = ({navigation,route })=>{
-  const favMeals = useSelector<appState, appState["favouriteMeals"]>((state) => state.favouriteMeals);
-  
-  return <MealList listData={MEALS} navigation={navigation} />;
+  const favMeals = useSelector<appState, appState["favouriteMeals"]>((state) => state.meals.favouriteMeals);
+  return <MealList listData={favMeals} navigation={navigation} />;
 }
 
 export const FavouritesScreenOptions = (navigationData: any) => {
